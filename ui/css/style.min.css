@@ -1,0 +1,202 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: dijital;
+  src: url(../font/digital-7.ttf);
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.wrapper {
+  width: 200px;
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  position: absolute;
+  left: 16%;
+  bottom: 0.6%;
+  padding: 10px;
+}
+
+.speed-gear-box {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: dijital;
+  margin-bottom: 10px;
+}
+
+.current-speed-box,
+.current-gear-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-shadow: 0 0 3px white;
+  padding: 0 3px;
+}
+.seat-belt-icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seatbelt {
+  width: 35px !important;
+  height: 35px !important;
+  fill: rgba(184, 20, 20, 1);
+}
+
+.current-speed-value,
+.current-gear-value {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  height: 100%;
+}
+
+.current-speed-text,
+.current-gear-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+.icons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.dashboard-icons {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+.left-signal,
+.right-signal {
+  width: 30px;
+  height: 30px;
+}
+
+.hazard-light {
+  width: 17px;
+  height: 17px;
+}
+
+.fuel-box {
+  width: 100%;
+  height: 25px;
+}
+
+.current-fuel-background {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  position: relative;
+  border-radius: 5px;
+}
+
+.current-fuel {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(210, 172, 67, 1);
+  box-shadow: 0 0 4px rgba(210, 172, 67, 1);
+  position: relative;
+  z-index: 1;
+  transition: width 0.3s;
+}
+
+.current-fuel-alert {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.fuel-icon {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+.blink-anim {
+  -moz-animation: blink normal 1s infinite ease-in-out;
+  -webkit-animation: blink normal 1s infinite ease-in-out;
+  animation: blink normal 1s infinite ease-in-out;
+}
+
+@-moz-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
