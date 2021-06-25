@@ -166,8 +166,6 @@ Citizen.CreateThread(function()
             end
         end
 
-        
-
         elseif pedInVeh then
             pedInVeh = false
             SeatbeltON = false

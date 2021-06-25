@@ -47,10 +47,17 @@ $(function () {
         $(".current-fuel-alert").removeClass("blink-anim");
         $(".current-fuel").css("box-shadow", "0 0 4px rgba(210, 172, 67, 1)");
       }
-
-      if (data.signalLights == 1) {
+      if (data.signalLights == 0) {
+        $(".left-signal").css("fill", "#fff");
+        $(".right-signal").css("fill", "#fff");
+        $(".hazard-light").css("fill", "#fff");
+        $(".left-signal").removeClass("blink-anim");
+        $(".right-signal").removeClass("blink-anim");
+        $(".hazard-light").removeClass("blink-anim");
+      } else if (data.signalLights == 1) {
         $(".left-signal").css("fill", "lime");
         $(".left-signal").addClass("blink-anim");
+
         $(".right-signal").css("fill", "#fff");
         $(".hazard-light").css("fill", "#fff");
         $(".right-signal").removeClass("blink-anim");
@@ -58,24 +65,18 @@ $(function () {
       } else if (data.signalLights == 2) {
         $(".right-signal").css("fill", "lime");
         $(".right-signal").addClass("blink-anim");
+
         $(".left-signal").css("fill", "#fff");
-        $(".left-signal").removeClass("blink-anim");
         $(".hazard-light").css("fill", "#fff");
+        $(".left-signal").removeClass("blink-anim");
         $(".hazard-light").removeClass("blink-anim");
-      } else if (data.signalLights == 3) {
+      } else if (data.signalLights == 3 || data.signalLights <= 3) {
         $(".left-signal").css("fill", "lime");
-        $(".left-signal").addClass("blink-anim");
         $(".right-signal").css("fill", "lime");
-        $(".right-signal").addClass("blink-anim");
         $(".hazard-light").css("fill", "rgba(210, 172, 67, 1)");
+        $(".left-signal").addClass("blink-anim");
+        $(".right-signal").addClass("blink-anim");
         $(".hazard-light").addClass("blink-anim");
-      } else if (data.signalLights == 0) {
-        $(".left-signal").css("fill", "#fff");
-        $(".left-signal").removeClass("blink-anim");
-        $(".right-signal").css("fill", "#fff");
-        $(".right-signal").removeClass("blink-anim");
-        $(".hazard-light").css("fill", "#fff");
-        $(".hazard-light").removeClass("blink-anim");
       }
 
       if (data.lights) {
