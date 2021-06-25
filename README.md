@@ -1,4 +1,4 @@
-# Fivem Status Hud
+# Fivem Car Hud
 Fivem için geliştirdiğim car-hud.
 
 ## Özellikleri
