@@ -9,4 +9,4 @@ Fivem için geliştirdiğim car-hud.
 ### config.lua uzerinden tuşları ve limitleri düzenleyebilirsiniz.
 
 ## Video
-
+https://youtu.be/ZSjc-uCl49I
