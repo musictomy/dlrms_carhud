@@ -5,6 +5,10 @@ local currentSpeed = 0.0
 local cruiseSpeed = 999.0
 local cruiseIsOn = false
 local pedInVeh = false
+local speedBuffer = {}
+local velBuffer = {}
+local SeatbeltON = false
+
 ----------------------------------------------
 Citizen.CreateThread(function()
     while true do
@@ -61,7 +65,8 @@ Citizen.CreateThread(function()
                     signalLights = signalLights,
                     speed = speed,
                     gear = gear,
-                    fuel = fuel
+                    fuel = fuel,
+                    SeatbeltON = SeatbeltON
                 })
             end
         else
@@ -98,5 +103,74 @@ Citizen.CreateThread(function()
             end
         end
         Citizen.Wait(10)
+    end
+end)
+
+--------- Seatbelt ---------
+AddEventHandler('seatbelt:sounds', function(soundFile, soundVolume)
+    SendNUIMessage({
+        pedInVeh = pedInVeh,
+        transactionType = 'playSound',
+        transactionFile = soundFile,
+        transactionVolume = soundVolume
+    })
+end)
+
+function IsCar(veh)
+    local vc = GetVehicleClass(veh)
+    return (vc >= 0 and vc <= 7) or (vc >= 9 and vc <= 12) or (vc >= 17 and vc <= 20)
+end	
+
+function Fwv(entity)
+    local hr = GetEntityHeading(entity) + 90.0
+    if hr < 0.0 then hr = 360.0 + hr end
+    hr = hr * 0.0174533
+    return { x = math.cos(hr) * 2.0, y = math.sin(hr) * 2.0 }
+end
+ 
+Citizen.CreateThread(function()
+	while true do
+	Citizen.Wait(10)
+  
+    local ped = PlayerPedId()
+    local vehicle = GetVehiclePedIsIn(ped)
+
+    if vehicle ~= 0 and (pedInVeh or IsCar(vehicle)) then
+        pedInVeh = true
+        if SeatbeltON then 
+            DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
+            DisableControlAction(27, 75, true) -- Disable exit vehicle when Driving
+        end
+      
+        speedBuffer[2] = speedBuffer[1]
+        speedBuffer[1] = GetEntitySpeed(vehicle)
+
+        if not SeatbeltON and speedBuffer[2] ~= nil and GetEntitySpeedVector(vehicle, true).y > 1.0 and speedBuffer[1] > (80.0 / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
+            local co = GetEntityCoords(ped)
+            local fw = Fwv(ped)
+            SetEntityCoords(ped, co.x + fw.x, co.y + fw.y, co.z - 0.47, true, true, true)
+            SetEntityVelocity(ped, velBuffer[2].x, velBuffer[2].y, velBuffer[2].z)
+            Citizen.Wait(1)
+            SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
+        end
+        
+        velBuffer[2] = velBuffer[1]
+        velBuffer[1] = GetEntityVelocity(vehicle)
+            
+        if IsControlJustReleased(0, Config.SeatBeltInput) and GetLastInputMethod(0) then
+            SeatbeltON = not SeatbeltON 
+            if SeatbeltON then
+                Citizen.Wait(1)
+                TriggerEvent("seatbelt:sounds", "buckle", Config.SeatBeltVolume)
+            else 
+                TriggerEvent("seatbelt:sounds", "unbuckle", Config.SeatBeltVolume)
+            end
+        end
+      
+        elseif pedInVeh then
+            pedInVeh = false
+            SeatbeltON = false
+            speedBuffer[1], speedBuffer[2] = 0.0, 0.0
+        end
     end
 end)

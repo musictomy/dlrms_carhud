@@ -1,7 +1,7 @@
 $(function () {
   window.addEventListener("message", function (event) {
     let data = event.data;
-
+    $(".wrapper").stop(false, true);
     if (data.pedInVeh) {
       $(".container").css("display", "block");
       $(".wrapper").animate({ opacity: "1" }, 100);
@@ -101,6 +101,14 @@ $(function () {
         $(".cruise-control").css("fill", "lime");
       } else {
         $(".cruise-control").css("fill", "rgba(184, 20, 20, 1)");
+      }
+
+      if (data.SeatbeltON) {
+        $(".seatbelt-control").css("fill", "lime");
+        $(".seatbelt-control").removeClass("blink-anim");
+      } else {
+        $(".seatbelt-control").css("fill", "rgba(184, 20, 20, 1)");
+        $(".seatbelt-control").addClass("blink-anim");
       }
     } else {
       $(".wrapper").animate({ opacity: "0" }, 100, () => {
