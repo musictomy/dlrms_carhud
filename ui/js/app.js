@@ -1,8 +1,8 @@
 $(function () {
   window.addEventListener("message", function (event) {
     let data = event.data;
-    $(".wrapper").stop(false, true);
     if (data.pedInVeh) {
+      $(".wrapper").stop(true, false);
       $(".container").css("display", "block");
       $(".wrapper").animate({ opacity: "1" }, 150);
 
