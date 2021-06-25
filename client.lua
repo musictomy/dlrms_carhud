@@ -8,7 +8,6 @@ local pedInVeh = false
 local speedBuffer = {}
 local velBuffer = {}
 local SeatbeltON = false
-
 ----------------------------------------------
 Citizen.CreateThread(function()
     while true do
@@ -109,7 +108,6 @@ end)
 --------- Seatbelt ---------
 AddEventHandler('seatbelt:sounds', function(soundFile, soundVolume)
     SendNUIMessage({
-        pedInVeh = pedInVeh,
         transactionType = 'playSound',
         transactionFile = soundFile,
         transactionVolume = soundVolume
@@ -157,7 +155,7 @@ Citizen.CreateThread(function()
         velBuffer[2] = velBuffer[1]
         velBuffer[1] = GetEntityVelocity(vehicle)
             
-        if IsControlJustReleased(0, Config.SeatBeltInput) and GetLastInputMethod(0) then
+        if IsControlJustPressed(0, Config.SeatBeltInput) and GetLastInputMethod(0) then
             SeatbeltON = not SeatbeltON 
             if SeatbeltON then
                 Citizen.Wait(1)
