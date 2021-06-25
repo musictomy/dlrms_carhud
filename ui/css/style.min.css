@@ -208,9 +208,9 @@
 }
 
 .blink-anim {
-  -moz-animation: blink normal 0.7s infinite ease-in-out;
-  -webkit-animation: blink normal 0.7s infinite ease-in-out;
-  animation: blink normal 0.7s infinite ease-in-out;
+  -moz-animation: blink normal 1s infinite ease-in-out;
+  -webkit-animation: blink normal 1s infinite ease-in-out;
+  animation: blink normal 1s infinite ease-in-out;
 }
 
 @-moz-keyframes blink {
