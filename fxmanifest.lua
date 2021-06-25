@@ -16,5 +16,4 @@ files({
 	"ui/font/*.ttf",
 	"ui/img/*.svg",
 	"ui/js/*.js",
-	"ui/sounds/*.ogg",
 })

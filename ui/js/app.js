@@ -1,14 +1,18 @@
 $(function () {
   window.addEventListener("message", function (event) {
     let data = event.data;
-    $(".seatbelt").addClass("blink-anim");
 
-    if (data.InVehicle) {
+    if (data.pedInVeh) {
       $(".container").css("display", "block");
-      $(".wrapper").show("fast");
-      $(".current-speed-value").html(Math.round(data.speed));
-      $(".current-gear-value").html(Math.round(data.gear));
+      $(".wrapper").animate({ opacity: "1" }, 100);
+
+      $(".current-speed-value").html(Math.floor(data.speed));
+      $(".current-gear-value").html(Math.floor(data.gear));
       $(".current-fuel").css("width", data.fuel + "%");
+
+      $(".compass-street-name").html(data.streetName);
+      $(".compass-zone-name").html(data.zoneName);
+      $(".compass-direction").html(data.direction);
 
       if (data.speed >= data.speedLimit) {
         $(".current-speed-value").css("color", "rgba(184, 20, 20, 1)");
@@ -86,13 +90,20 @@ $(function () {
           $(".high-beam").css("fill", "#fff");
         }
       }
+
       if (data.engineControl) {
         $(".engine-control").css("fill", "lime");
       } else {
         $(".engine-control").css("fill", "rgba(184, 20, 20, 1)");
       }
+
+      if (data.cruiseIsOn) {
+        $(".cruise-control").css("fill", "lime");
+      } else {
+        $(".cruise-control").css("fill", "rgba(184, 20, 20, 1)");
+      }
     } else {
-      $(".wrapper").hide("fast", function () {
+      $(".wrapper").animate({ opacity: "0" }, 100, () => {
         $(".container").css("display", "none");
       });
     }
