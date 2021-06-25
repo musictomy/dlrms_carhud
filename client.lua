@@ -128,18 +128,19 @@ end
  
 Citizen.CreateThread(function()
 	while true do
-	Citizen.Wait(10)
+	Citizen.Wait(1)
   
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(ped)
 
     if vehicle ~= 0 and (pedInVeh or IsCar(vehicle)) then
         pedInVeh = true
+
         if SeatbeltON then 
             DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
             DisableControlAction(27, 75, true) -- Disable exit vehicle when Driving
         end
-      
+
         speedBuffer[2] = speedBuffer[1]
         speedBuffer[1] = GetEntitySpeed(vehicle)
 
@@ -164,7 +165,9 @@ Citizen.CreateThread(function()
                 TriggerEvent("seatbelt:sounds", "unbuckle", Config.SeatBeltVolume)
             end
         end
-      
+
+        
+
         elseif pedInVeh then
             pedInVeh = false
             SeatbeltON = false
