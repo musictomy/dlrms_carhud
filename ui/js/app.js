@@ -4,7 +4,7 @@ $(function () {
     $(".wrapper").stop(false, true);
     if (data.pedInVeh) {
       $(".container").css("display", "block");
-      $(".wrapper").animate({ opacity: "1" }, 100);
+      $(".wrapper").animate({ opacity: "1" }, 150);
 
       $(".current-speed-value").html(Math.floor(data.speed));
       $(".current-gear-value").html(Math.floor(data.gear));
@@ -111,7 +111,7 @@ $(function () {
         $(".seatbelt-control").addClass("blink-anim");
       }
     } else {
-      $(".wrapper").animate({ opacity: "0" }, 100, () => {
+      $(".wrapper").animate({ opacity: "0" }, 150, () => {
         $(".container").css("display", "none");
       });
     }
