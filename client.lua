@@ -27,10 +27,10 @@ Citizen.CreateThread(function()
         Citizen.Wait(100)
         local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
+        local pauseMenuOn = IsPauseMenuActive()
 
-        if IsPedInVehicle(ped, vehicle, false) then 
+        if IsPedInVehicle(ped, vehicle, false) and not pauseMenuOn then 
             pedInVeh = true 
-
             if pedInVeh then
                 local speedLimit = Config.SpeedLimit
                 local fuelLimit = Config.FuelLimit
@@ -39,7 +39,7 @@ Citizen.CreateThread(function()
                 local speed = GetEntitySpeed(vehicle) * 3.6 --3.6 = KM/H , 2.236936 = MPH
                 local gear = GetVehicleCurrentGear(vehicle)
                 local engineControl = GetIsVehicleEngineRunning(vehicle)
-
+                
                 local vehVal, lowBeamsOn, highbeamsOn = GetVehicleLightsState(vehicle)
                 if lowBeamsOn == 1 and highbeamsOn == 0 then
                     lights = 'normal'
@@ -49,10 +49,9 @@ Citizen.CreateThread(function()
                     lights = 'off'
                 end
                 ----------------------------------
-                
-                ----------------------------------
                 SendNUIMessage({
                     pedInVeh = true,
+                    pauseMenuOn = pauseMenuOn,
                     cruiseIsOn = cruiseIsOn,
                     engineControl = engineControl,
                     speedLimit = speedLimit,
