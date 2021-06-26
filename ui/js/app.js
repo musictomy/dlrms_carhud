@@ -1,7 +1,7 @@
 $(function () {
   window.addEventListener("message", function (event) {
     let data = event.data;
-    if (data.pedInVeh && data.pauseMenuOn == false) {
+    if (data.pedInVeh && !data.pauseMenuOn) {
       $(".wrapper").stop(true, false);
       $(".container").css("display", "block");
       $(".wrapper").animate({ opacity: "1" }, 150);

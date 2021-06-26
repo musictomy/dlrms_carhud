@@ -14,11 +14,14 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
         local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
-        local position = GetEntityCoords(ped)
 
-        direction = directions[math.floor((GetEntityHeading(ped) + 22.5) / 45.0)]
-        zoneName = zones[GetNameOfZone(position.x, position.y, position.z)]
-        streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(position.x, position.y, position.z))
+        if pedInVeh then 
+            local position = GetEntityCoords(ped)
+
+            direction = directions[math.floor((GetEntityHeading(ped) + 22.5) / 45.0)]
+            zoneName = zones[GetNameOfZone(position.x, position.y, position.z)]
+            streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(position.x, position.y, position.z))
+        end
     end
 end)
 
@@ -30,7 +33,7 @@ Citizen.CreateThread(function()
         local pauseMenuOn = IsPauseMenuActive()
 
         if IsPedInVehicle(ped, vehicle, false) and not pauseMenuOn then 
-            pedInVeh = true 
+            pedInVeh = true
             if pedInVeh then
                 local speedLimit = Config.SpeedLimit
                 local fuelLimit = Config.FuelLimit
@@ -56,21 +59,23 @@ Citizen.CreateThread(function()
                     engineControl = engineControl,
                     speedLimit = speedLimit,
                     fuelLimit = fuelLimit,
+                    lights = lights,
+                    signalLights = signalLights,
                     streetName = streetName,
                     zoneName = zoneName,
                     direction = direction,
-                    lights = lights,
-                    signalLights = signalLights,
                     speed = speed,
                     gear = gear,
                     fuel = fuel,
                     SeatbeltON = SeatbeltON
                 })
+                ----------------------------------
             end
         else
             SendNUIMessage({
                 pedInVeh = false,
             })
+            Citizen.Wait(500)
         end
     end
 end)
@@ -78,6 +83,7 @@ end)
 -- Cruise Control
 Citizen.CreateThread(function()
     while true do
+        Citizen.Wait(10)
         local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
         local vehicleClass = GetVehicleClass(vehicle)
@@ -99,8 +105,9 @@ Citizen.CreateThread(function()
                 pedInVeh = false
                 cruiseIsOn = false
             end
+        else
+            Citizen.Wait(500)
         end
-        Citizen.Wait(10)
     end
 end)
 
@@ -127,13 +134,11 @@ end
  
 Citizen.CreateThread(function()
 	while true do
-	Citizen.Wait(1)
-  
+    Citizen.Wait(1)
     local ped = PlayerPedId()
     local vehicle = GetVehiclePedIsIn(ped)
 
     if vehicle ~= 0 and (pedInVeh or IsCar(vehicle)) then
-        pedInVeh = true
 
         if SeatbeltON then 
             DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
@@ -143,6 +148,9 @@ Citizen.CreateThread(function()
         speedBuffer[2] = speedBuffer[1]
         speedBuffer[1] = GetEntitySpeed(vehicle)
 
+        velBuffer[2] = velBuffer[1]
+        velBuffer[1] = GetEntityVelocity(vehicle)
+
         if not SeatbeltON and speedBuffer[2] ~= nil and GetEntitySpeedVector(vehicle, true).y > 1.0 and speedBuffer[1] > (80.0 / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
             local co = GetEntityCoords(ped)
             local fw = Fwv(ped)
@@ -151,14 +159,10 @@ Citizen.CreateThread(function()
             Citizen.Wait(1)
             SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
         end
-        
-        velBuffer[2] = velBuffer[1]
-        velBuffer[1] = GetEntityVelocity(vehicle)
             
-        if IsControlJustPressed(0, Config.SeatBeltInput) and GetLastInputMethod(0) then
+        if IsControlJustPressed(0, Config.SeatBeltInput) then
             SeatbeltON = not SeatbeltON 
             if SeatbeltON then
-                Citizen.Wait(1)
                 TriggerEvent("seatbelt:sounds", "buckle", Config.SeatBeltVolume)
             else 
                 TriggerEvent("seatbelt:sounds", "unbuckle", Config.SeatBeltVolume)
@@ -169,6 +173,7 @@ Citizen.CreateThread(function()
             pedInVeh = false
             SeatbeltON = false
             speedBuffer[1], speedBuffer[2] = 0.0, 0.0
+            Citizen.Wait(500)
         end
     end
 end)
