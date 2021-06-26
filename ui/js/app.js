@@ -2,9 +2,9 @@ $(function () {
   window.addEventListener("message", function (event) {
     let data = event.data;
     if (data.pedInVeh && !data.pauseMenuOn) {
-      $(".wrapper").stop(true, false);
       $(".container").css("display", "block");
-      $(".wrapper").animate({ opacity: "1" }, 150);
+      $(".wrapper").stop(true, false);
+      $(".wrapper").animate({ opacity: "1" }, 100);
 
       $(".current-speed-value").html(Math.floor(data.speed));
       $(".current-gear-value").html(Math.floor(data.gear));
@@ -112,7 +112,7 @@ $(function () {
         $(".seatbelt-control").addClass("blink-anim");
       }
     } else {
-      $(".wrapper").animate({ opacity: "0" }, 150, () => {
+      $(".wrapper").animate({ opacity: "0" }, 100, () => {
         $(".container").css("display", "none");
       });
     }
