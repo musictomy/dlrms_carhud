@@ -54,6 +54,7 @@ Citizen.CreateThread(function()
                 ----------------------------------
                 SendNUIMessage({
                     pedInVeh = true,
+                    isCar = isCar,
                     pauseMenuOn = pauseMenuOn,
                     cruiseIsOn = cruiseIsOn,
                     engineControl = engineControl,
@@ -137,8 +138,9 @@ Citizen.CreateThread(function()
     Citizen.Wait(1)
     local ped = GetPlayerPed(-1)
     local vehicle = GetVehiclePedIsIn(ped)
+    isCar = IsCar(vehicle)
 
-    if vehicle ~= 0 and (pedInVeh or IsCar(vehicle)) then
+    if vehicle ~= 0 and isCar then
 
         if SeatbeltON then 
             DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
