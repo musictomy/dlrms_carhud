@@ -141,6 +141,7 @@ Citizen.CreateThread(function()
     isCar = IsCar(vehicle)
 
     if vehicle ~= 0 and isCar then
+        pedInVeh = true
 
         if SeatbeltON then 
             DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
@@ -177,7 +178,10 @@ Citizen.CreateThread(function()
             speedBuffer[1], speedBuffer[2] = 0.0, 0.0
             Citizen.Wait(500)
         end
+        
     end
+        SendNUIMessage({
+        })
 end)
 
 Citizen.CreateThread(function()
