@@ -12,7 +12,7 @@ local SeatbeltON = false
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000)
-        local ped = PlayerPedId()
+        local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
 
         if pedInVeh then 
@@ -28,7 +28,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(100)
-        local ped = PlayerPedId()
+        local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
         local pauseMenuOn = IsPauseMenuActive()
 
@@ -84,7 +84,7 @@ end)
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(10)
-        local ped = PlayerPedId()
+        local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
         local vehicleClass = GetVehicleClass(vehicle)
 
@@ -135,7 +135,7 @@ end
 Citizen.CreateThread(function()
 	while true do
     Citizen.Wait(1)
-    local ped = PlayerPedId()
+    local ped = GetPlayerPed(-1)
     local vehicle = GetVehiclePedIsIn(ped)
 
     if vehicle ~= 0 and (pedInVeh or IsCar(vehicle)) then
@@ -176,4 +176,13 @@ Citizen.CreateThread(function()
             Citizen.Wait(500)
         end
     end
+end)
+
+Citizen.CreateThread(function()
+	while true do
+        Citizen.Wait(1000)
+        if not SeatbeltON and pedInVeh and GetIsVehicleEngineRunning(GetVehiclePedIsIn(GetPlayerPed(-1), false)) and Config.SeatBeltAlarm then
+            TriggerEvent("seatbelt:sounds", "seatbelt", Config.SeatBeltVolume)
+        end    
+	end
 end)
