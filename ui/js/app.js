@@ -37,24 +37,19 @@ $(function () {
         $(".current-fuel-alert").css("display", "block");
         $(".current-fuel-alert").addClass("blink-anim");
         $(".current-fuel").css("box-shadow", "0 0 0 0 #000");
-        $(".current-fuel-alert").css("background", "rgba(184, 20, 20, 1)");
-        $(".current-fuel-alert").css(
-          "box-shadow",
-          "0px 0px 4px rgba(184, 20, 20, 1)"
-        );
       } else {
         $(".current-fuel-alert").css("display", "none");
         $(".current-fuel-alert").removeClass("blink-anim");
         $(".current-fuel").css("box-shadow", "0 0 4px rgba(210, 172, 67, 1)");
       }
-      if (data.signalLights == 0) {
+      if (data.signalLights === 0) {
         $(".left-signal").css("fill", "#fff");
         $(".right-signal").css("fill", "#fff");
         $(".hazard-light").css("fill", "#fff");
         $(".left-signal").removeClass("blink-anim");
         $(".right-signal").removeClass("blink-anim");
         $(".hazard-light").removeClass("blink-anim");
-      } else if (data.signalLights == 1) {
+      } else if (data.signalLights === 1) {
         $(".left-signal").css("fill", "lime");
         $(".left-signal").addClass("blink-anim");
 
@@ -62,7 +57,7 @@ $(function () {
         $(".hazard-light").css("fill", "#fff");
         $(".right-signal").removeClass("blink-anim");
         $(".hazard-light").removeClass("blink-anim");
-      } else if (data.signalLights == 2) {
+      } else if (data.signalLights === 2) {
         $(".right-signal").css("fill", "lime");
         $(".right-signal").addClass("blink-anim");
 
@@ -70,7 +65,7 @@ $(function () {
         $(".hazard-light").css("fill", "#fff");
         $(".left-signal").removeClass("blink-anim");
         $(".hazard-light").removeClass("blink-anim");
-      } else if (data.signalLights == 3 || data.signalLights <= 3) {
+      } else if (data.signalLights === 3) {
         $(".left-signal").css("fill", "lime");
         $(".right-signal").css("fill", "lime");
         $(".hazard-light").css("fill", "rgba(210, 172, 67, 1)");
