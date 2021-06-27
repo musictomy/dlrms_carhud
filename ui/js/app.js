@@ -98,17 +98,20 @@ $(function () {
       } else {
         $(".cruise-control").css("fill", "rgba(184, 20, 20, 1)");
       }
+
       if (data.isCar) {
         $(".seatbelt-control").show();
+        $(".middle-icons").css("height", "60px");
+        if (data.SeatbeltON) {
+          $(".seatbelt-control").css("fill", "lime");
+          $(".seatbelt-control").removeClass("blink-anim");
+        } else {
+          $(".seatbelt-control").css("fill", "rgba(184, 20, 20, 1)");
+          $(".seatbelt-control").addClass("blink-anim");
+        }
       } else {
         $(".seatbelt-control").hide();
-      }
-      if (data.SeatbeltON) {
-        $(".seatbelt-control").css("fill", "lime");
-        $(".seatbelt-control").removeClass("blink-anim");
-      } else {
-        $(".seatbelt-control").css("fill", "rgba(184, 20, 20, 1)");
-        $(".seatbelt-control").addClass("blink-anim");
+        $(".middle-icons").css("height", "50px");
       }
     } else {
       $(".wrapper").animate({ opacity: "0" }, 100, () => {
