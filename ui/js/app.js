@@ -33,6 +33,12 @@ $(function () {
         $(".current-gear-value").html("R");
       }
 
+      if (data.speedType == "kmh") {
+        $(".current-speed-text").html("KM/H");
+      } else if (data.speedType == "mph") {
+        $(".current-speed-text").html("MPH");
+      }
+
       if (data.fuel <= data.fuelLimit) {
         $(".current-fuel-alert").css("display", "block");
         $(".current-fuel-alert").addClass("blink-anim");
