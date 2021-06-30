@@ -31,7 +31,7 @@ end)
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(100)
+        Citizen.Wait(150)
         local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
         pauseMenuOn = IsPauseMenuActive()
@@ -100,25 +100,22 @@ Citizen.CreateThread(function()
         local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
 
-        if IsPedInVehicle(ped, vehicle, false) and GetIsVehicleEngineRunning(vehicle) and not pauseMenuOn then
+        if IsPedInVehicle(ped, vehicle, false) and GetPedInVehicleSeat(vehicle, -1) == ped and GetIsVehicleEngineRunning(vehicle) and not pauseMenuOn then
             pedInVeh = true
             if pedInVeh then 
                 local prevSpeed = currentSpeed
                 currentSpeed = GetEntitySpeed(vehicle)
 
-                if GetPedInVehicleSeat(vehicle, -1) == ped then
-                    if IsControlJustReleased(0, Config.CruiseInput) then
-                        cruiseSpeed = currentSpeed
-                        cruiseIsOn = not cruiseIsOn
-                    end
-                    local maxSpeed = cruiseIsOn and cruiseSpeed or GetVehicleHandlingFloat(vehicle,"CHandlingData","fInitialDriveMaxFlatVel")
-                    SetEntityMaxSpeed(vehicle, maxSpeed)
-                else
-                    pedInVeh = false
-                    cruiseIsOn = false
+                if IsControlJustPressed(0, Config.CruiseInput) then
+                    cruiseSpeed = currentSpeed
+                    cruiseIsOn = not cruiseIsOn
                 end
+                local maxSpeed = cruiseIsOn and cruiseSpeed or GetVehicleHandlingFloat(vehicle,"CHandlingData","fInitialDriveMaxFlatVel")
+                SetEntityMaxSpeed(vehicle, maxSpeed)
             end
         else
+            pedInVeh = false
+            cruiseIsOn = false
             Citizen.Wait(500)
         end
     end
@@ -155,6 +152,7 @@ Citizen.CreateThread(function()
         if IsPedInVehicle(ped, vehicle, false) and isCar and not pauseMenuOn then
             pedInVeh = true
             if pedInVeh then 
+
                 if SeatbeltON then 
                     DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
                     DisableControlAction(27, 75, true) -- Disable exit vehicle when Driving
