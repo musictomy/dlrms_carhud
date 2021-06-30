@@ -1,4 +1,4 @@
-fx_version 'adamant'
+fx_version 'cerulean'
 games { 'gta5' }
 author 'https://github.com/Delarmuss'
 version '1.0'

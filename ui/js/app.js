@@ -1,6 +1,15 @@
 window.addEventListener("message", function (event) {
   let data = event.data;
+  var audioPlayer = null;
+  if (data.transactionType == "playSound") {
+    if (audioPlayer != null) {
+      audioPlayer.pause();
+    }
 
+    audioPlayer = new Audio("./sounds/" + data.transactionFile + ".ogg");
+    audioPlayer.volume = data.transactionVolume;
+    audioPlayer.play();
+  }
   if (data.pedInVeh && !data.pauseMenuOn) {
     $(".container").css("display", "block");
     $(".wrapper").stop(true, false);

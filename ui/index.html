@@ -140,23 +140,6 @@
       </div>
     </div>
 
-    <script>
-      var audioPlayer = null;
-      // Listen for NUI Messages.
-      window.addEventListener("message", function (event) {
-        let data = event.data;
-        // Check for playSound transaction
-        if (data.transactionType == "playSound") {
-          if (audioPlayer != null) {
-            audioPlayer.pause();
-          }
-
-          audioPlayer = new Audio("./sounds/" + data.transactionFile + ".ogg");
-          audioPlayer.volume = data.transactionVolume;
-          audioPlayer.play();
-        }
-      });
-    </script>
     <script src="js/app.js"></script>
   </body>
 </html>

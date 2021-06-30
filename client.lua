@@ -92,7 +92,7 @@ Citizen.CreateThread(function()
             SendNUIMessage({
                 pedInVeh = false,
             })
-            Citizen.Wait(500)
+            Citizen.Wait(200)
         end
     end
 end)
@@ -101,7 +101,7 @@ end)
 --------- Cruise Control ---------
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(10)
+        Citizen.Wait(1)
         local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
 
@@ -121,7 +121,7 @@ Citizen.CreateThread(function()
         else
             pedInVeh = false
             cruiseIsOn = false
-            Citizen.Wait(500)
+            Citizen.Wait(200)
         end
     end
 end)
@@ -175,7 +175,7 @@ Citizen.CreateThread(function()
                     SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
                 end
 					
-		velBuffer[2] = velBuffer[1]
+		        velBuffer[2] = velBuffer[1]
                 velBuffer[1] = GetEntityVelocity(vehicle)
                     
                 if IsControlJustPressed(0, Config.SeatBeltInput) then
@@ -191,7 +191,7 @@ Citizen.CreateThread(function()
             pedInVeh = false
             SeatbeltON = false
             speedBuffer[1], speedBuffer[2] = 0.0, 0.0
-            Citizen.Wait(500)
+            Citizen.Wait(200)
         end
     end
 end)
