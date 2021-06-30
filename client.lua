@@ -1,4 +1,4 @@
-----------------------------------------------
+--------- Variables ---------
 local currentSpeed = 0.0
 local cruiseSpeed = 999.0
 local cruiseIsOn = false
@@ -6,7 +6,9 @@ local pedInVeh = false
 local SeatbeltON = false
 local speedBuffer = {}
 local velBuffer = {}
-----------------------------------------------
+--------- Variables End ---------
+
+--------- Compass ---------
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000)
@@ -28,7 +30,9 @@ Citizen.CreateThread(function()
         end
     end
 end)
+--------- Compass End ---------
 
+--------- Main ---------
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(150)
@@ -92,6 +96,7 @@ Citizen.CreateThread(function()
         end
     end
 end)
+--------- Main End ---------
 
 --------- Cruise Control ---------
 Citizen.CreateThread(function()
@@ -120,6 +125,7 @@ Citizen.CreateThread(function()
         end
     end
 end)
+--------- Cruise Control End ---------
 
 --------- Seatbelt ---------
 AddEventHandler('seatbelt:sounds', function(soundFile, soundVolume)
@@ -161,9 +167,6 @@ Citizen.CreateThread(function()
                 speedBuffer[2] = speedBuffer[1]
                 speedBuffer[1] = GetEntitySpeed(vehicle)
 
-                velBuffer[2] = velBuffer[1]
-                velBuffer[1] = GetEntityVelocity(vehicle)
-
                 if not SeatbeltON and speedBuffer[2] ~= nil and GetEntitySpeedVector(vehicle, true).y > 1.0 and speedBuffer[1] > (80.0 / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
                     local co = GetEntityCoords(ped)
                     local fw = Fwv(ped)
@@ -171,6 +174,9 @@ Citizen.CreateThread(function()
                     SetEntityVelocity(ped, velBuffer[2].x, velBuffer[2].y, velBuffer[2].z)
                     SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
                 end
+					
+		velBuffer[2] = velBuffer[1]
+                velBuffer[1] = GetEntityVelocity(vehicle)
                     
                 if IsControlJustPressed(0, Config.SeatBeltInput) then
                     SeatbeltON = not SeatbeltON 
@@ -189,3 +195,4 @@ Citizen.CreateThread(function()
         end
     end
 end)
+--------- Seatbelt End ---------
