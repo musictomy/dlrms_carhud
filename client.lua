@@ -105,7 +105,7 @@ Citizen.CreateThread(function()
         local ped = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsIn(ped, false)
 
-        if IsPedInVehicle(ped, vehicle, false) and GetPedInVehicleSeat(vehicle, -1) == ped and GetIsVehicleEngineRunning(vehicle) and not pauseMenuOn then
+        if IsPedInVehicle(ped, vehicle, false) and GetPedInVehicleSeat(vehicle, -1) == ped and GetIsVehicleEngineRunning(vehicle) then
             pedInVeh = true
             if pedInVeh then 
                 local prevSpeed = currentSpeed
@@ -155,7 +155,7 @@ Citizen.CreateThread(function()
         local vehicle = GetVehiclePedIsIn(ped)
         isCar = IsCar(vehicle)
 
-        if IsPedInVehicle(ped, vehicle, false) and isCar and not pauseMenuOn then
+        if IsPedInVehicle(ped, vehicle, false) and isCar then
             pedInVeh = true
             if pedInVeh then 
 
