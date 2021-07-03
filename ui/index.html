@@ -140,6 +140,22 @@
       </div>
     </div>
 
+    <script>
+      window.addEventListener("message", function (event) {
+        const data = event.data;
+        var audioPlayer = null;
+        if (data.transactionType == "playSound") {
+          if (audioPlayer != null) {
+            audioPlayer.pause();
+          }
+
+          audioPlayer = new Audio("./sounds/" + data.transactionFile + ".ogg");
+          audioPlayer.volume = data.transactionVolume;
+          audioPlayer.play();
+        }
+      });
+    </script>
+
     <script src="js/app.js"></script>
   </body>
 </html>
