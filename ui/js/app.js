@@ -43,7 +43,7 @@ window.addEventListener("message", function (event) {
     } else {
       $(".current-fuel-alert").css("display", "none");
       $(".current-fuel-alert").removeClass("blink-anim");
-      $(".current-fuel").css("box-shadow", "0 0 4px rgba(210, 172, 67, 1)");
+      $(".current-fuel").css("box-shadow", "0 0 4px rgba(233, 182, 41, 1)");
     }
     if (data.signalLights === 0) {
       $(".left-signal").css("fill", "#fff");
@@ -71,7 +71,7 @@ window.addEventListener("message", function (event) {
     } else if (data.signalLights === 3) {
       $(".left-signal").css("fill", "lime");
       $(".right-signal").css("fill", "lime");
-      $(".hazard-light").css("fill", "rgba(210, 172, 67, 1)");
+      $(".hazard-light").css("fill", "rgba(233, 182, 41, 1)");
       $(".left-signal").addClass("blink-anim");
       $(".right-signal").addClass("blink-anim");
       $(".hazard-light").addClass("blink-anim");
