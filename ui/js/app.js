@@ -16,10 +16,7 @@ window.addEventListener("message", function (event) {
 
     if (data.speed >= data.speedLimit) {
       $(".current-speed-value").css("color", "rgba(184, 20, 20, 1)");
-      $(".current-speed-value").css(
-        "text-shadow",
-        "0 0 3px rgba(184, 20, 20, 1)"
-      );
+      $(".current-speed-value").css("text-shadow", "0 0 3px rgba(184, 20, 20, 1)");
     } else {
       $(".current-speed-value").css("color", "#fff");
       $(".current-speed-value").css("text-shadow", "0 0 3px #fff");
