@@ -3,46 +3,50 @@ window.addEventListener("message", function (event) {
 
   if (data.pedInVeh && !data.pauseMenuOn) {
     $(".container").css("display", "block");
-    $(".wrapper").stop(true, false);
-    $(".wrapper").animate({ opacity: "1" }, 150);
+    $(".container").stop(true, false);
+    $(".container").animate({ opacity: "1" }, 150);
 
-    $(".current-speed-value").html(Math.floor(data.speed));
-    $(".current-gear-value").html(Math.floor(data.gear));
+    $(".current-speed-value").text(Math.floor(data.speed));
+    $(".current-gear-value").text(Math.floor(data.gear));
     $(".current-fuel").css("width", data.fuel + "%");
 
-    $(".compass-street-name").html(data.streetName);
-    $(".compass-zone-name").html(data.zoneName);
-    $(".compass-direction").html(data.direction);
+    $(".compass-street-name").text(data.streetName);
+    $(".compass-zone-name").text(data.zoneName);
+    $(".compass-direction").text(data.direction);
 
     if (data.speed >= data.speedLimit) {
-      $(".current-speed-value").css("color", "rgba(184, 20, 20, 1)");
-      $(".current-speed-value").css("text-shadow", "0 0 3px rgba(184, 20, 20, 1)");
+      $(".current-speed-value").css({
+        color: "rgba(184, 20, 20, 1)",
+        "text-shadow": "0 0 3px rgba(184, 20, 20, 1)",
+      });
     } else {
-      $(".current-speed-value").css("color", "#fff");
-      $(".current-speed-value").css("text-shadow", "0 0 3px #fff");
+      $(".current-speed-value").css({
+        color: "#fff",
+        "text-shadow": "0 0 3px #fff",
+      });
     }
 
     if (data.speed == 0 && data.gear >= 0) {
-      $(".current-gear-value").html("N");
+      $(".current-gear-value").text("N");
     }
 
     if (data.speed > 0 && data.gear == 0) {
-      $(".current-gear-value").html("R");
+      $(".current-gear-value").text("R");
     }
 
     if (data.speedType == "kmh") {
-      $(".current-speed-text").html("KM/H");
+      $(".current-speed-text").text("KM/H");
     } else if (data.speedType == "mph") {
-      $(".current-speed-text").html("MPH");
+      $(".current-speed-text").text("MPH");
     }
 
     if (data.fuel <= data.fuelLimit) {
-      $(".current-fuel-alert").css("display", "block");
       $(".current-fuel-alert").addClass("blink-anim");
+      $(".current-fuel-alert").css("display", "block");
       $(".current-fuel").css("box-shadow", "0 0 0 0 #000");
     } else {
-      $(".current-fuel-alert").css("display", "none");
       $(".current-fuel-alert").removeClass("blink-anim");
+      $(".current-fuel-alert").css("display", "none");
       $(".current-fuel").css("box-shadow", "0 0 4px rgba(233, 182, 41, 1)");
     }
     if (data.signalLights === 0) {
@@ -115,7 +119,7 @@ window.addEventListener("message", function (event) {
       $(".seatbelt-control").css("display", "none");
     }
   } else {
-    $(".wrapper").animate({ opacity: "0" }, 150, () => {
+    $(".container").animate({ opacity: "0" }, 150, () => {
       $(".container").css("display", "none");
     });
   }

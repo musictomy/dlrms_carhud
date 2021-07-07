@@ -93,7 +93,7 @@
     <script>
       window.addEventListener("message", function (event) {
         const data = event.data;
-        var audioPlayer = null;
+        let audioPlayer = null;
         if (data.transactionType == "playSound") {
           if (audioPlayer != null) {
             audioPlayer.pause();

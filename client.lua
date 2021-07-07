@@ -50,13 +50,13 @@ Citizen.CreateThread(function()
                 local fuelLimit = Config.FuelAlertLimit
                 local engineControl = GetIsVehicleEngineRunning(vehicle)
                 local signalLights = GetVehicleIndicatorLights(vehicle)
-
+                
                 if speedType == 'kmh' then
                     speed = GetEntitySpeed(vehicle) * 3.6
                 elseif speedType == 'mph' then
                     speed = GetEntitySpeed(vehicle) * 2.236936 -- or 2.23694
                 end
-                
+
                 local vehVal, lowBeamsOn, highbeamsOn = GetVehicleLightsState(vehicle)
                 if lowBeamsOn == 1 and highbeamsOn == 0 then
                     lights = 'normal'
@@ -152,7 +152,7 @@ Citizen.CreateThread(function()
 	while true do
         Citizen.Wait(1)
         local ped = GetPlayerPed(-1)
-        local vehicle = GetVehiclePedIsIn(ped)
+        local vehicle = GetVehiclePedIsIn(ped, false)
         isCar = IsCar(vehicle)
 
         if IsPedInVehicle(ped, vehicle, false) and isCar then
@@ -163,15 +163,16 @@ Citizen.CreateThread(function()
                     DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
                     DisableControlAction(27, 75, true) -- Disable exit vehicle when Driving
                 end
-
+                
                 speedBuffer[2] = speedBuffer[1]
-                speedBuffer[1] = GetEntitySpeed(vehicle)
+                speedBuffer[1] = GetEntitySpeed(vehicle) * 3.6
 
-                if not SeatbeltON and speedBuffer[2] ~= nil and GetEntitySpeedVector(vehicle, true).y > 1.0 and speedBuffer[1] > (80.0 / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
+                if not SeatbeltON and speedBuffer[2] ~= nil and GetEntitySpeedVector(vehicle, true).y > 1.0 and speedBuffer[1] > 100.0 / 3.6 and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
                     local co = GetEntityCoords(ped)
                     local fw = Fwv(ped)
                     SetEntityCoords(ped, co.x + fw.x, co.y + fw.y, co.z - 0.47, true, true, true)
                     SetEntityVelocity(ped, velBuffer[2].x, velBuffer[2].y, velBuffer[2].z)
+                    Citizen.Wait(1)
                     SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
                 end
 					
