@@ -50,6 +50,7 @@ Citizen.CreateThread(function()
                 local fuelLimit = Config.FuelAlertLimit
                 local engineControl = GetIsVehicleEngineRunning(vehicle)
                 local signalLights = GetVehicleIndicatorLights(vehicle)
+                local handbrake = GetVehicleHandbrake(vehicle) 
                 
                 if speedType == 'kmh' then
                     speed = GetEntitySpeed(vehicle) * 3.6
@@ -76,6 +77,7 @@ Citizen.CreateThread(function()
                     speedLimit = speedLimit,
                     fuelLimit = fuelLimit,
                     lights = lights,
+                    handbrake = handbrake,
                     signalLights = signalLights,
                     streetName = streetName,
                     zoneName = zoneName,

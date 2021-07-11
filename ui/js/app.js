@@ -81,23 +81,36 @@ window.addEventListener("message", function (event) {
       $(".hazard-light").addClass("blink-anim");
     }
 
-    if (data.lights) {
-      if (data.lights == "normal") {
-        $(".low-beam").css("fill", "lime");
-        $(".high-beam").css("fill", "#fff");
-      } else if (data.lights == "high") {
-        $(".low-beam").css("fill", "lime");
-        $(".high-beam").css("fill", "blue");
-      } else {
-        $(".low-beam").css("fill", "#fff");
-        $(".high-beam").css("fill", "#fff");
-      }
+    if (data.lights == "normal") {
+      $(".low-beam").css("fill", "lime");
+      $(".high-beam").css("fill", "#fff");
+
+      $(".high-beam").hide();
+      $(".low-beam").show();
+    } else if (data.lights == "high") {
+      $(".low-beam").css("fill", "lime");
+      $(".high-beam").css("fill", "blue");
+
+      $(".low-beam").hide();
+      $(".high-beam").show();
+    } else {
+      $(".high-beam").hide();
+      $(".low-beam").show();
+
+      $(".low-beam").css("fill", "#fff");
+      $(".high-beam").css("fill", "#fff");
     }
 
     if (data.engineControl) {
       $(".engine-control").css("fill", "lime");
     } else {
       $(".engine-control").css("fill", "rgba(184, 20, 20, 1)");
+    }
+
+    if (data.handbrake) {
+      $(".handbrake-control").css("fill", "rgba(184, 20, 20, 1)");
+    } else {
+      $(".handbrake-control").css("fill", "#fff");
     }
 
     if (data.cruiseIsOn) {
