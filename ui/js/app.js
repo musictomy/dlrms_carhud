@@ -6,9 +6,10 @@ window.addEventListener("message", function (event) {
     $(".container").stop(true, false);
     $(".container").animate({ opacity: "1" }, 150);
 
-    $(".current-speed-value").text(Math.floor(data.speed));
-    $(".current-gear-value").text(Math.floor(data.gear));
-    $(".current-fuel").css("width", data.fuel + "%");
+    $(".current-speed-value").text(Math.round(data.speed));
+    $(".current-gear-value").text(Math.round(data.gear));
+    $(".current-fuel").css("width", Math.round(data.fuel) + "%");
+    $(".current-fuel-text").text(Math.round(data.fuel) + "%");
 
     $(".compass-street-name").text(data.streetName);
     $(".compass-zone-name").text(data.zoneName);
@@ -40,7 +41,7 @@ window.addEventListener("message", function (event) {
       $(".current-speed-text").text("MPH");
     }
 
-    if (data.fuel <= data.fuelLimit) {
+    if (data.fuel < data.fuelLimit) {
       $(".current-fuel-alert").addClass("blink-anim");
       $(".current-fuel-alert").css("display", "block");
       $(".current-fuel").css("box-shadow", "0 0 0 0 #000");
