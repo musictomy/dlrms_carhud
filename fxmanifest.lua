@@ -1,20 +1,21 @@
-fx_version 'cerulean'
-games { 'gta5' }
+fx_version 'bodacious'
+game 'gta5'
 author 'https://github.com/Delarmuss'
 version '1.0'
+description 'Car hud by delarmuss'
 
 client_scripts {
 	'client.lua',
 	'config.lua'
 }
 
-ui_page('ui/index.html')
+ui_page 'ui/index.html'
 
-files({
+files {
 	"ui/*.html",
 	"ui/css/*.css",
 	"ui/font/*.ttf",
 	"ui/img/*.svg",
 	"ui/js/*.js",
 	"ui/sounds/*.ogg"
-})
+}
