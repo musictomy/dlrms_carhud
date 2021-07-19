@@ -1,4 +1,4 @@
-fx_version 'bodacious'
+fx_version 'cerulean'
 game 'gta5'
 author 'https://github.com/Delarmuss'
 version '1.0'
@@ -8,9 +8,7 @@ client_scripts {
 	'client.lua',
 	'config.lua'
 }
-
 ui_page 'ui/index.html'
-
 files {
 	"ui/*.html",
 	"ui/css/*.css",

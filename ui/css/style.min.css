@@ -183,8 +183,8 @@
   min-width: 0;
   height: 100%;
   border-radius: inherit;
-  background: rgba(255, 193, 0, 1);
-  box-shadow: 0 0 4px rgba(255, 193, 0, 1);
+  background: rgba(236, 178, 3, 1);
+  box-shadow: 0 0 4px rgba(236, 178, 3, 1);
   position: relative;
   z-index: 1;
   transition: width 0.3s;
