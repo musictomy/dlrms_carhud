@@ -6,10 +6,10 @@ window.addEventListener("message", function (event) {
     $(".container").stop(true, false);
     $(".container").animate({ opacity: "1" }, 150);
 
-    $(".current-speed-value").text(Math.round(data.speed));
-    $(".current-gear-value").text(Math.round(data.gear));
-    $(".current-fuel").css("width", Math.round(data.fuel) + "%");
-    $(".current-fuel-text").text(Math.round(data.fuel) + "%");
+    $(".current-speed-value").text(data.speed);
+    $(".current-gear-value").text(data.gear);
+    $(".current-fuel").css("width", data.fuel + "%");
+    $(".current-fuel-text").text(data.fuel + "%");
 
     $(".compass-street-name").text(data.streetName);
     $(".compass-zone-name").text(data.zoneName);
@@ -38,17 +38,17 @@ window.addEventListener("message", function (event) {
     if (data.speedType == "kmh") {
       $(".current-speed-text").text("KM/H");
     } else if (data.speedType == "mph") {
-      $(".current-speed-text").text("MPH");
+      $(".current-speed-text").text("M/H");
     }
 
-    if (data.fuel < data.fuelLimit) {
+    if (data.fuel <= data.fuelLimit) {
       $(".current-fuel-alert").addClass("blink-anim");
       $(".current-fuel-alert").css("display", "block");
       $(".current-fuel").css("box-shadow", "0 0 0 0 #000");
     } else {
       $(".current-fuel-alert").removeClass("blink-anim");
       $(".current-fuel-alert").css("display", "none");
-      $(".current-fuel").css("box-shadow", "0 0 4px rgba(233, 182, 41, 1)");
+      $(".current-fuel").css("box-shadow", "0 0 4px rgba(255, 193, 0, 1)");
     }
     if (data.signalLights === 0) {
       $(".left-signal").css("fill", "#fff");
@@ -76,7 +76,7 @@ window.addEventListener("message", function (event) {
     } else if (data.signalLights === 3) {
       $(".left-signal").css("fill", "lime");
       $(".right-signal").css("fill", "lime");
-      $(".hazard-light").css("fill", "rgba(233, 182, 41, 1)");
+      $(".hazard-light").css("fill", "rgba(255, 193, 0, 1)");
       $(".left-signal").addClass("blink-anim");
       $(".right-signal").addClass("blink-anim");
       $(".hazard-light").addClass("blink-anim");

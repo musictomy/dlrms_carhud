@@ -45,17 +45,17 @@ Citizen.CreateThread(function()
             if pedInVeh then
                 local speedLimit = Config.SpeedAlertLimit
                 local speedType = Config.SpeedType
-                local gear = GetVehicleCurrentGear(vehicle)
-                local fuel = GetVehicleFuelLevel(vehicle)
+                local gear = math.floor(GetVehicleCurrentGear(vehicle))
+                local fuel = math.floor(GetVehicleFuelLevel(vehicle))
                 local fuelLimit = Config.FuelAlertLimit
                 local engineControl = GetIsVehicleEngineRunning(vehicle)
                 local signalLights = GetVehicleIndicatorLights(vehicle)
                 local handbrake = GetVehicleHandbrake(vehicle) 
                 
                 if speedType == 'kmh' then
-                    speed = GetEntitySpeed(vehicle) * 3.6
+                    speed = math.floor(GetEntitySpeed(vehicle) * 3.6)
                 elseif speedType == 'mph' then
-                    speed = GetEntitySpeed(vehicle) * 2.236936 -- or 2.23694
+                    speed =  math.floor(GetEntitySpeed(vehicle) * 2.236936) -- or 2.23694
                 end
 
                 local vehVal, lowBeamsOn, highbeamsOn = GetVehicleLightsState(vehicle)
@@ -185,8 +185,10 @@ Citizen.CreateThread(function()
                     SeatbeltON = not SeatbeltON 
                     if SeatbeltON then
                         TriggerEvent("seatbelt:sounds", "buckle", Config.SeatBeltVolume)
+                        TriggerEvent('dlrms_notify', 'success','Emniyet kemeri takıldı!')
                     else 
                         TriggerEvent("seatbelt:sounds", "unbuckle", Config.SeatBeltVolume)
+                        TriggerEvent('dlrms_notify', 'error','Emniyet kemeri çıkartıldı!')
                     end
                 end
             end
