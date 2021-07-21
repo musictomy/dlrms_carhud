@@ -1,9 +1,8 @@
-fx_version 'cerulean'
+fx_version 'adamant'
 game 'gta5'
 author 'https://github.com/Delarmuss'
 version '1.0'
 description 'Car hud by delarmuss'
-
 client_scripts {
 	'client.lua',
 	'config.lua'

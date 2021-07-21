@@ -66,6 +66,7 @@ Citizen.CreateThread(function()
                 else
                     lights = 'off'
                 end
+
                 ----------------------------------
                 SendNUIMessage({
                     pedInVeh = true,
