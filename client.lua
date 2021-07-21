@@ -16,8 +16,8 @@ end
 --------- Compass ---------
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(1000)
-        local ped = GetPlayerPed(-1)
+        local sleep = 1000
+        local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped)
 
         if IsPedInVehicle(ped, vehicle, false) and not pauseMenuOn then 
@@ -36,6 +36,7 @@ Citizen.CreateThread(function()
                 direction = direction
             })
         end
+        Citizen.Wait(sleep)
     end
 end)
 --------- Compass End ---------
@@ -43,8 +44,8 @@ end)
 --------- Main ---------
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(100)
-        local ped = GetPlayerPed(-1)
+        local sleep = 100
+        local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
         local pauseMenuOn = IsPauseMenuActive()
 
@@ -62,7 +63,7 @@ Citizen.CreateThread(function()
             if speedType == 'kmh' then
                 speed = math.floor(GetEntitySpeed(vehicle) * 3.6)
             elseif speedType == 'mph' then
-                speed =  math.floor(GetEntitySpeed(vehicle) * 2.23694) -- or 2.23694
+                speed =  math.floor(GetEntitySpeed(vehicle) * 2.23694)
             end
 
             local vehVal, lowBeamsOn, highbeamsOn = GetVehicleLightsState(vehicle)
@@ -105,8 +106,9 @@ Citizen.CreateThread(function()
                 action = 'ui',
                 ui = false,
             })
-            Citizen.Wait(500)
+            sleep = 500
         end
+        Citizen.Wait(sleep)
     end
 end)
 --------- Main End ---------
@@ -114,8 +116,8 @@ end)
 --------- Cruise Control ---------
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(1)
-        local ped = GetPlayerPed(-1)
+        local sleep = 1
+        local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
 
         if IsPedInVehicle(ped, vehicle, false) and GetPedInVehicleSeat(vehicle, -1) == ped and GetIsVehicleEngineRunning(vehicle) then
@@ -130,8 +132,9 @@ Citizen.CreateThread(function()
             SetEntityMaxSpeed(vehicle, maxSpeed)
         else
             cruiseIsOn = false
-            Citizen.Wait(300)
+            sleep = 500
         end
+        Citizen.Wait(sleep)
     end
 end)
 --------- Cruise Control End ---------
@@ -159,8 +162,8 @@ end
 
 Citizen.CreateThread(function()
 	while true do
-        Citizen.Wait(1)
-        local ped = GetPlayerPed(-1)
+        local sleep = 1
+        local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
         isCar = IsCar(vehicle)
 
@@ -198,8 +201,9 @@ Citizen.CreateThread(function()
         else
             SeatbeltON = false
             speedBuffer[1], speedBuffer[2] = 0.0, 0.0
-            Citizen.Wait(300)
+            sleep = 500
         end
+        Citizen.Wait(sleep)
     end
 end)
 --------- Seatbelt End ---------
