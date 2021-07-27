@@ -48,18 +48,19 @@ Citizen.CreateThread(function()
         local ped = PlayerPedId()
         local vehicle = GetVehiclePedIsIn(ped, false)
         local pauseMenuOn = IsPauseMenuActive()
+        local isBigMap = IsBigmapActive()
 
         if IsPedInVehicle(ped, vehicle, false) and not pauseMenuOn then 
             ui = true
-            local speedLimit = Config.SpeedAlertLimit
             local speedType = Config.SpeedType
-            local gear = math.floor(GetVehicleCurrentGear(vehicle))
-            local fuel = math.floor(GetVehicleFuelLevel(vehicle))
             local fuelLimit = Config.FuelAlertLimit
-            local engineControl = GetIsVehicleEngineRunning(vehicle)
-            local signalLights = GetVehicleIndicatorLights(vehicle)
+            local speedLimit = Config.SpeedAlertLimit
             local handbrake = GetVehicleHandbrake(vehicle) 
-            
+            local indicator = GetVehicleIndicatorLights(vehicle)
+            local fuel = math.floor(exports['LegacyFuel']:GetFuel(GetVehiclePedIsIn(ped)))
+            local gear = math.floor(GetVehicleCurrentGear(vehicle))
+            local engineControl = GetIsVehicleEngineRunning(vehicle)
+  
             if speedType == 'kmh' then
                 speed = math.floor(GetEntitySpeed(vehicle) * 3.6)
             elseif speedType == 'mph' then
@@ -85,12 +86,12 @@ Citizen.CreateThread(function()
                 fuelLimit = fuelLimit,
                 lights = lights,
                 handbrake = handbrake,
-                signalLights = signalLights,
+                indicator = indicator,
                 speed = speed,
                 gear = gear,
                 fuel = fuel,
+                isBigMap = isBigMap
             })
-           
             SendNUIMessage({
                 action = 'seatbelt',
                 isCar = isCar,
